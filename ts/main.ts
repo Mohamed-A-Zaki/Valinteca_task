@@ -33,13 +33,13 @@ let products: ProductType[] = [
   {
     product_name: "high-back bench",
     product_price: "20099",
-    product_image: "https://images2.imgbox.com/b4/3d/2jm4sPHs_o.jpeg",
+    product_image: "https://images2.imgbox.com/0f/f0/5OTgCNyH_o.jpeg",
     added_to_cart: false,
   },
   {
     product_name: "leather chair",
     product_price: "39999",
-    product_image: "https://images2.imgbox.com/fa/23/Pqoxb7z6_o.jpeg",
+    product_image: "https://images2.imgbox.com/25/f2/Ce0d8fue_o.jpeg",
     added_to_cart: false,
   },
 ];
@@ -53,7 +53,8 @@ set_cart_count();
 
 let cart_element = document.querySelector("nav .cart") as HTMLDivElement;
 cart_element.addEventListener("click", function () {
-  cart_element.querySelector(".drop-down")?.classList.toggle("active");
+  const drop_down = document.querySelector("nav .drop-down") as HTMLDivElement;
+  drop_down.classList.toggle("active");
 });
 
 /*********************** End Toogle Dropdown Menu ***********************/
@@ -91,9 +92,7 @@ function render_products() {
 }
 
 function render_cart_items() {
-  const drop_down = document.querySelector(
-    "nav .cart .drop-down"
-  ) as HTMLDivElement;
+  const drop_down = document.querySelector("nav .drop-down") as HTMLDivElement;
 
   drop_down.innerHTML = "";
 
@@ -166,6 +165,6 @@ function add_products_to_locacal_storage() {
   localStorage.setItem("products", JSON.stringify(products));
 }
 
-/**********************.******* End LocalStorage *************************/
+/****************************** End LocalStorage *************************/
 
 /******************************* End Functions ***************************/

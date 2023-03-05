@@ -68,6 +68,7 @@ nav {
   box-shadow: 0 0 10px #eee;
   .container {
     @include flex_bettween();
+    position: relative;
   }
   .brand {
     font-size: 30px;
@@ -83,7 +84,6 @@ nav {
     }
     .icon {
       @include centering();
-      position: relative;
       span {
         position: absolute;
         width: 23px;
@@ -104,56 +104,59 @@ nav {
         height: 30px;
       }
     }
-    .drop-down {
-      position: absolute;
-      top: 45px;
-      right: -15px;
-      width: 500px;
+  }
+  .drop-down {
+    position: absolute;
+    top: 60px;
+    right: -5px;
+    width: 500px;
+    max-width: 100%;
+    padding: 10px 5px;
+    border-radius: 7px;
+    background-color: #fff;
+    box-shadow: 0 0 10px #ccc;
+    display: none;
+    &.active {
+      display: block;
+    }
+    .no-items {
+      padding: 10px;
+      background-color: #f1f1f1;
+      text-align: center;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    .item {
+      display: flex;
+      gap: 10px;
+      margin: 10px;
+      border: 1px solid $main-color;
       border-radius: 7px;
-      background-color: #fff;
-      box-shadow: 0 0 10px #ccc;
-      display: none;
-      &.active {
-        display: block;
-      }
-      .no-items {
-        padding: 10px;
-        background-color: #f1f1f1;
-        text-align: center;
-        margin: 10px;
-        border-radius: 5px;
-      }
-      .item {
-        display: flex;
-        gap: 10px;
-        margin: 10px;
-        border: 1px solid $main-color;
+      padding: 7px;
+      img {
+        width: 130px;
+        height: 75px;
+        object-fit: cover;
+        padding: 3px;
         border-radius: 7px;
-        padding: 7px;
-        img {
-          width: 130px;
-          height: 75px;
-          object-fit: cover;
-          padding: 3px;
-          border-radius: 7px;
-          border: 1px solid #ddd;
+        border: 1px solid #ddd;
+      }
+      .content {
+        flex: 1;
+        position: relative;
+        .details {
+          @include flex_bettween();
+          font-size: 18px;
+          .price {
+            color: $main-color;
+          }
         }
-        .content {
-          flex: 1;
-          position: relative;
-          .details {
-            @include flex_bettween();
-            .price {
-              color: $main-color;
-            }
-          }
-          button {
-            display: block;
-            margin-left: auto;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-          }
+        button {
+          display: block;
+          margin-left: auto;
+          position: absolute;
+          bottom: 0;
+          right: 0;
         }
       }
     }

@@ -27,13 +27,13 @@ let products = [
     {
         product_name: "high-back bench",
         product_price: "20099",
-        product_image: "https://images2.imgbox.com/b4/3d/2jm4sPHs_o.jpeg",
+        product_image: "https://images2.imgbox.com/0f/f0/5OTgCNyH_o.jpeg",
         added_to_cart: false,
     },
     {
         product_name: "leather chair",
         product_price: "39999",
-        product_image: "https://images2.imgbox.com/fa/23/Pqoxb7z6_o.jpeg",
+        product_image: "https://images2.imgbox.com/25/f2/Ce0d8fue_o.jpeg",
         added_to_cart: false,
     },
 ];
@@ -44,8 +44,8 @@ set_cart_count();
 /********************** Start Toogle Dropdown Menu *********************/
 let cart_element = document.querySelector("nav .cart");
 cart_element.addEventListener("click", function () {
-    var _a;
-    (_a = cart_element.querySelector(".drop-down")) === null || _a === void 0 ? void 0 : _a.classList.toggle("active");
+    const drop_down = document.querySelector("nav .drop-down");
+    drop_down.classList.toggle("active");
 });
 /*********************** End Toogle Dropdown Menu ***********************/
 /***************************** Start Functions **************************/
@@ -70,7 +70,7 @@ function render_products() {
     });
 }
 function render_cart_items() {
-    const drop_down = document.querySelector("nav .cart .drop-down");
+    const drop_down = document.querySelector("nav .drop-down");
     drop_down.innerHTML = "";
     let cart_items = products.filter((ele) => ele.added_to_cart);
     if (cart_items.length) {
@@ -129,6 +129,6 @@ function get_data_from_local_storage() {
 function add_products_to_locacal_storage() {
     localStorage.setItem("products", JSON.stringify(products));
 }
-/**********************.******* End LocalStorage *************************/
+/****************************** End LocalStorage *************************/
 /******************************* End Functions ***************************/
 //# sourceMappingURL=main.js.map
