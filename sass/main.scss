@@ -49,6 +49,20 @@ a {
   }
 }
 
+button {
+  border: none;
+  padding: 7px 12px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  flex: 1;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: $main-color;
+    color: #fff;
+  }
+}
+
 nav {
   padding: 10px 0;
   box-shadow: 0 0 10px #eee;
@@ -63,6 +77,7 @@ nav {
     @include centering();
     gap: 10px;
     cursor: pointer;
+    position: relative;
     span {
       font-size: 20px;
     }
@@ -87,6 +102,59 @@ nav {
       img {
         width: 30px;
         height: 30px;
+      }
+    }
+    .drop-down {
+      position: absolute;
+      top: 45px;
+      right: -15px;
+      width: 500px;
+      border-radius: 7px;
+      background-color: #fff;
+      box-shadow: 0 0 10px #ccc;
+      display: none;
+      &.active {
+        display: block;
+      }
+      .no-items {
+        padding: 10px;
+        background-color: #f1f1f1;
+        text-align: center;
+        margin: 10px;
+        border-radius: 5px;
+      }
+      .item {
+        display: flex;
+        gap: 10px;
+        margin: 10px;
+        border: 1px solid $main-color;
+        border-radius: 7px;
+        padding: 7px;
+        img {
+          width: 130px;
+          height: 75px;
+          object-fit: cover;
+          padding: 3px;
+          border-radius: 7px;
+          border: 1px solid #ddd;
+        }
+        .content {
+          flex: 1;
+          position: relative;
+          .details {
+            @include flex_bettween();
+            .price {
+              color: $main-color;
+            }
+          }
+          button {
+            display: block;
+            margin-left: auto;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+          }
+        }
       }
     }
   }
@@ -118,19 +186,6 @@ nav {
     .btns {
       display: flex;
       gap: 5px;
-      button {
-        border: none;
-        padding: 7px 12px;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        flex: 1;
-        transition: 0.3s;
-        cursor: pointer;
-        &:hover {
-          background-color: $main-color;
-          color: #fff;
-        }
-      }
     }
   }
 }
