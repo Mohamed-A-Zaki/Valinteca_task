@@ -63,6 +63,15 @@ cart_element.addEventListener("click", function () {
 
 function handle_add_to_cart(product: ProductType) {
   product.added_to_cart = !product.added_to_cart;
+  rerender_products();
+}
+
+function handle_remove_from_cart(product: ProductType) {
+  product.added_to_cart = false;
+  rerender_products();
+}
+
+function rerender_products() {
   render_products();
   set_cart_count();
   render_cart_items();
@@ -105,6 +114,16 @@ function render_cart_items() {
   } else {
     drop_down.innerHTML = `<div class="no-items">Empty Cart</div>`;
   }
+
+  const remove_btns = document.querySelectorAll(
+    "nav .drop-down .item .content button"
+  );
+
+  remove_btns.forEach((btn, indx) => {
+    btn.addEventListener("click", () => {
+      handle_remove_from_cart(cart_items[indx]);
+    });
+  });
 }
 
 function set_cart_count() {

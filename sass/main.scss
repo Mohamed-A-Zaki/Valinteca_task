@@ -4,7 +4,7 @@ $main-color: #ff8100;
 
 @mixin centering() {
   display: flex;
-  align-items: center;
+  justify-content: center;
   align-items: center;
 }
 
@@ -85,6 +85,7 @@ nav {
     .icon {
       @include centering();
       span {
+        @include centering();
         position: absolute;
         width: 23px;
         height: 23px;
@@ -92,9 +93,6 @@ nav {
         background-color: $main-color;
         border-radius: 50%;
         color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         top: 0;
         right: 0;
         transform: translate(50%, -50%);
