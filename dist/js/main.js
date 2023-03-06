@@ -37,32 +37,47 @@ let products = [
         added_to_cart: false,
     },
 ];
+/***************************  Start Calling Functions *********************/
 get_data_from_local_storage();
-render_products();
-render_cart_items();
-set_cart_count();
-/********************** Start Toogle Dropdown Menu *********************/
-let cart_element = document.querySelector("nav .cart");
-cart_element.addEventListener("click", function () {
-    const drop_down = document.querySelector("nav .drop-down");
-    drop_down.classList.toggle("active");
-});
-/*********************** End Toogle Dropdown Menu ***********************/
-/***************************** Start Functions **************************/
-function handle_add_to_cart(product) {
-    product.added_to_cart = !product.added_to_cart;
-    rerender_products();
-}
-function handle_remove_from_cart(product) {
-    product.added_to_cart = false;
-    rerender_products();
-}
-function rerender_products() {
+render_page();
+toggle_cart();
+/***************************  End Calling Functions *********************/
+function render_page() {
     render_products();
     set_cart_count();
     render_cart_items();
     add_products_to_locacal_storage();
 }
+function toggle_cart() {
+    let cart_element = document.querySelector("nav .cart");
+    cart_element.addEventListener("click", () => {
+        const drop_down = document.querySelector("nav .drop-down");
+        drop_down.classList.toggle("active");
+    });
+}
+function add_remove_from_cart(product) {
+    product.added_to_cart = !product.added_to_cart;
+    render_page();
+}
+function remove_from_cart(product) {
+    product.added_to_cart = false;
+    render_page();
+}
+function set_cart_count() {
+    let number_of_cart_items = document.querySelector("nav .cart .icon span");
+    number_of_cart_items.innerHTML = products
+        .filter((ele) => ele.added_to_cart)
+        .length.toString();
+}
+function remove_model() {
+    let modal = document.querySelector(".modal");
+    let overlay = document.querySelector(".overlay");
+    modal.remove();
+    overlay.remove();
+    render_page();
+    toggle_cart();
+}
+/************************** Start Render Functions ***********************/
 function render_products() {
     let product_list = document.querySelector(".products .products-list");
     product_list.innerHTML = "";
@@ -72,7 +87,13 @@ function render_products() {
     let add_btns = document.querySelectorAll(".products-list .product .btns button.add");
     add_btns.forEach((btn, indx) => {
         btn.addEventListener("click", () => {
-            handle_add_to_cart(products[indx]);
+            add_remove_from_cart(products[indx]);
+        });
+    });
+    let show_btns = document.querySelectorAll("button.view");
+    show_btns.forEach((btn, indx) => {
+        btn.addEventListener("click", () => {
+            render_modal(products[indx]);
         });
     });
 }
@@ -91,16 +112,23 @@ function render_cart_items() {
     const remove_btns = document.querySelectorAll("nav .drop-down .item .content button");
     remove_btns.forEach((btn, indx) => {
         btn.addEventListener("click", () => {
-            handle_remove_from_cart(cart_items[indx]);
+            remove_from_cart(cart_items[indx]);
         });
     });
 }
-function set_cart_count() {
-    let number_of_cart_items = document.querySelector("nav .cart .icon span");
-    number_of_cart_items.innerHTML = products
-        .filter((ele) => ele.added_to_cart)
-        .length.toString();
+function render_modal(product) {
+    let product_page = document.querySelector(".product-page");
+    product_page.innerHTML += create_modal(product);
+    let close_btn = document.querySelector(".modal .colse");
+    close_btn.addEventListener("click", () => remove_model());
+    let remove_btn = document.querySelector(".modal button");
+    remove_btn.addEventListener("click", () => {
+        add_remove_from_cart(product);
+        remove_model();
+    });
 }
+/************************** End Render Functions *************************/
+/************************** Start Create Functions ***********************/
 function create_product(product) {
     const { product_name, product_image, product_price, added_to_cart } = product;
     return `
@@ -132,6 +160,22 @@ function create_cart_item(product) {
   </div>
   `;
 }
+function create_modal(product) {
+    const { product_name, product_image, product_price, added_to_cart } = product;
+    return `
+    <div class="modal">
+      <img src=${product_image} alt=${product_name} />
+      <div class="desc">
+        <div class="name">${product_name}</div>
+        <div class="price">$${product_price}</div>
+      </div>
+      <button>${added_to_cart ? "remove from cart" : "add to cart"}</button>
+      <div class="colse">X</div>
+    </div>
+    <div class="overlay"></div>
+  `;
+}
+/*************************** End Create Functions ************************/
 /*************************** Start LocalStorage **************************/
 function get_data_from_local_storage() {
     let products_list = localStorage.getItem("products");
@@ -143,5 +187,4 @@ function add_products_to_locacal_storage() {
     localStorage.setItem("products", JSON.stringify(products));
 }
 /****************************** End LocalStorage *************************/
-/******************************* End Functions ***************************/
 //# sourceMappingURL=main.js.map
